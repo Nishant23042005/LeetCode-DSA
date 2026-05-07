@@ -1,0 +1,26 @@
+// LeetCode 1038
+// Binary Search Tree to Greater Sum Tree
+// Topic: Binary Search Tree, DFS, Reverse Inorder Traversal
+// Difficulty: Medium
+// Time Complexity: O(n)
+// Space Complexity: O(h)
+
+class Solution {
+    int sum = 0;
+
+    public void inorder(TreeNode root) {
+        if (root == null) {
+            return;
+        }
+
+        inorder(root.right);
+        sum += root.val;
+        root.val = sum;
+        inorder(root.left);
+    }
+
+    public TreeNode bstToGst(TreeNode root) {
+        inorder(root);
+        return root;
+    }
+}
