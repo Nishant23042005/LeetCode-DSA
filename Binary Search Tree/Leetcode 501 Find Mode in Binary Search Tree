@@ -1,0 +1,54 @@
+// LeetCode 501
+// Find Mode in Binary Search Tree
+// Topic: Binary Search Tree, DFS, Inorder Traversal
+// Difficulty: Easy
+// Time Complexity: O(n)
+// Space Complexity: O(n)
+
+class Solution {
+    public void inorder(TreeNode root, ArrayList<Integer> arr) {
+        if (root == null) {
+            return;
+        }
+
+        inorder(root.left, arr);
+        arr.add(root.val);
+        inorder(root.right, arr);
+    }
+
+    public int[] findMode(TreeNode root) {
+        ArrayList<Integer> arr = new ArrayList<>();
+        inorder(root, arr);
+
+        ArrayList<Integer> ans = new ArrayList<>();
+
+        int maxfreq = 0;
+        int currnum = Integer.MIN_VALUE;
+        int currfreq = 0;
+
+        for (int i = 0; i < arr.size(); i++) {
+            if (arr.get(i) != currnum) {
+                currnum = arr.get(i);
+                currfreq = 1;
+            } else {
+                currfreq++;
+            }
+
+            if (currfreq > maxfreq) {
+                maxfreq = currfreq;
+                ans.clear();
+                ans.add(currnum);
+            } else if (currfreq == maxfreq) {
+                ans.add(currnum);
+            }
+        }
+
+        int[] res = new int[ans.size()];
+
+        for (int i = 0; i < ans.size(); i++) {
+            res[i] = ans.get(i);
+        }
+
+        return res;
+    }
+}
