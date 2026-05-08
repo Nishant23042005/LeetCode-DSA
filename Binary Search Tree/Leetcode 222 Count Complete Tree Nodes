@@ -1,0 +1,23 @@
+// LeetCode 222
+// Count Complete Tree Nodes
+// Topic: Binary Tree, DFS
+// Difficulty: Easy
+// Time Complexity: O(n)
+// Space Complexity: O(h)
+
+class Solution {
+    public int inorder(TreeNode root) {
+        if (root == null) {
+            return 0;
+        }
+
+        int left = inorder(root.left);
+        int right = inorder(root.right);
+
+        return left + right + 1;
+    }
+
+    public int countNodes(TreeNode root) {
+        return inorder(root);
+    }
+}
