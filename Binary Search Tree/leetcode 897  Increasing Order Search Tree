@@ -1,0 +1,30 @@
+// LeetCode 897
+// Increasing Order Search Tree
+// Topic: Binary Search Tree, Inorder Traversal
+// Difficulty: Easy
+// Time Complexity: O(n)
+// Space Complexity: O(h)
+
+class Solution {
+    TreeNode dummy = new TreeNode(-1);
+    TreeNode curr = dummy;
+
+    public void inorder(TreeNode root) {
+        if (root == null) {
+            return;
+        }
+
+        inorder(root.left);
+
+        root.left = null;
+        curr.right = root;
+        curr = root;
+
+        inorder(root.right);
+    }
+
+    public TreeNode increasingBST(TreeNode root) {
+        inorder(root);
+        return dummy.right;
+    }
+}
