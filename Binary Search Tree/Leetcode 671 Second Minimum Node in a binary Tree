@@ -1,0 +1,31 @@
+// LeetCode 671
+// Second Minimum Node In a Binary Tree
+// Topic: Binary Tree, DFS
+// Difficulty: Easy
+// Time Complexity: O(n)
+// Space Complexity: O(h)
+
+class Solution {
+    int min;
+    long ans = Long.MAX_VALUE;
+
+    public void dfs(TreeNode root) {
+        if (root == null) {
+            return;
+        }
+
+        if (root.val > min && root.val < ans) {
+            ans = root.val;
+        }
+
+        dfs(root.left);
+        dfs(root.right);
+    }
+
+    public int findSecondMinimumValue(TreeNode root) {
+        min = root.val;
+        dfs(root);
+
+        return ans == Long.MAX_VALUE ? -1 : (int) ans;
+    }
+}
