@@ -1,0 +1,35 @@
+// LeetCode 958
+// Check Completeness of a Binary Tree
+// Topic: Binary Tree, DFS
+// Difficulty: Medium
+// Time Complexity: O(n)
+// Space Complexity: O(h)
+
+class Solution {
+    public int total(TreeNode root) {
+        if (root == null) {
+            return 0;
+        }
+
+        return 1 + total(root.left) + total(root.right);
+    }
+
+    public boolean dfs(TreeNode root, int i, int total) {
+        if (root == null) {
+            return true;
+        }
+
+        if (i > total) {
+            return false;
+        }
+
+        return dfs(root.left, 2 * i, total) &&
+               dfs(root.right, 2 * i + 1, total);
+    }
+
+    public boolean isCompleteTree(TreeNode root) {
+        int totalnode = total(root);
+
+        return dfs(root, 1, totalnode);
+    }
+}
