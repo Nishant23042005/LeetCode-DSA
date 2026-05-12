@@ -1,0 +1,48 @@
+// LeetCode 1110
+// Delete Nodes And Return Forest
+// Topic: Binary Tree, DFS
+// Difficulty: Medium
+// Time Complexity: O(n)
+// Space Complexity: O(n)
+
+class Solution {
+    public TreeNode solve(TreeNode root, HashSet<Integer> set, List<TreeNode> ans) {
+        if (root == null) {
+            return null;
+        }
+
+        root.left = solve(root.left, set, ans);
+        root.right = solve(root.right, set, ans);
+
+        if (set.contains(root.val)) {
+            if (root.left != null) {
+                ans.add(root.left);
+            }
+
+            if (root.right != null) {
+                ans.add(root.right);
+            }
+
+            return null;
+        }
+
+        return root;
+    }
+
+    public List<TreeNode> delNodes(TreeNode root, int[] to_delete) {
+        List<TreeNode> ans = new ArrayList<>();
+        HashSet<Integer> set = new HashSet<>();
+
+        for (int i : to_delete) {
+            set.add(i);
+        }
+
+        root = solve(root, set, ans);
+
+        if (root != null) {
+            ans.add(root);
+        }
+
+        return ans;
+    }
+}
