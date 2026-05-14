@@ -1,0 +1,41 @@
+// LeetCode 2784
+// Check if Array is Good
+// Topic: Arrays, Sorting
+// Difficulty: Easy
+// Time Complexity: O(n log n)
+// Space Complexity: O(n)
+
+class Solution {
+    public boolean isGood(int[] nums) {
+        int n = nums.length;
+        int max = nums[0];
+
+        for (int i : nums) {
+            if (i > max) {
+                max = i;
+            }
+        }
+
+        int idx = 1;
+        int[] arr = new int[max + 1];
+
+        for (int i = 0; i <= max; i++) {
+            arr[i] = idx;
+            idx++;
+        }
+
+        Arrays.sort(nums);
+
+        if (arr.length != nums.length) {
+            return false;
+        }
+
+        for (int i = 0; i < max; i++) {
+            if (arr[i] != nums[i]) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+}
