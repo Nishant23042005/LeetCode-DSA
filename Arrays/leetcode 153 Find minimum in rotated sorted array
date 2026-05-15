@@ -1,0 +1,21 @@
+// LeetCode 153
+// Find Minimum in Rotated Sorted Array
+// Topic: Arrays, Binary Search
+// Difficulty: Medium
+// Time Complexity: O(n)
+// Space Complexity: O(1)
+
+class Solution {
+    public int findMin(int[] nums) {
+        int n = nums.length;
+        int min = nums[0];
+
+        for (int i = 1; i < n; i++) {
+            if (nums[i] < min) {
+                min = nums[i];
+            }
+        }
+
+        return min;
+    }
+}
