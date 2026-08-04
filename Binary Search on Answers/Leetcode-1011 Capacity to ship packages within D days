@@ -1,0 +1,53 @@
+// LeetCode 1011
+// Capacity To Ship Packages Within D Days
+// Topic: Arrays, Binary Search
+// Difficulty: Medium
+// Time Complexity: O(n log(sum(weights)))
+// Space Complexity: O(1)
+
+class Solution {
+    public boolean capacity(int[] weights, int cap, int days) {
+        int curr = 0;
+        int dayUsed = 1;
+
+        for (int weight : weights) {
+            if (curr + weight <= cap) {
+                curr += weight;
+            } else {
+                dayUsed++;
+                curr = weight;
+            }
+
+            if (dayUsed > days) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    public int shipWithinDays(int[] weights, int days) {
+        int low = 0;
+        int high = 0;
+
+        for (int weight : weights) {
+            low = Math.max(low, weight);
+            high += weight;
+        }
+
+        int ans = high;
+
+        while (low <= high) {
+            int mid = low + (high - low) / 2;
+
+            if (capacity(weights, mid, days)) {
+                ans = mid;
+                high = mid - 1;
+            } else {
+                low = mid + 1;
+            }
+        }
+
+        return ans;
+    }
+}
